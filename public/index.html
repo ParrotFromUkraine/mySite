@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zhyvotov.Danil — ParrotFromUkraine</title>
+
+  <!-- Google Fonts: Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+</head>
+
+<body>
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div class="logoHeader">
+        <img src="./favicon.ico" alt="Parrot logo" class="logoHeaderImg" />
+        <a href="#" aria-label="ParrotFromUkraine">ParrotFromUkraine</a>
+      </div>
+
+      <nav class="socialMedia" aria-label="social links">
+        <a href="https://t.me/SnrKesha" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://github.com/ParrotFromUkraine/" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <h1 class="bigtext">UI / UX Design<br />Frontend<br />Backend</h1>
+        <p class="subtitle">
+          Web-developer, fullstack enthusiast. Пишу чистый код и люблю простые интерфейсы.
+        </p>
+
+        <div class="flex" style="margin-top: 18px">
+          <a class="btn" href="#resume">Резюме</a>
+          <a class="btn ghost" href="/assets/Danylo_Zhyvotov_CV.pdf" download>Скачать CV (PDF)</a>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="card" role="group" aria-label="Профиль">
+          <img class="imgCard" src="./img/zhyvotovdanylo.jpeg" alt="Фото Danylo Zhyvotov" />
+          <div class="textCard">
+            <h1>Danylo Zhyvotov</h1>
+            <p>Web-Developer · FullStack</p>
+            <p>Username: <strong>ParrotFromUkraine</strong></p>
+            <p class="muted">Birthday: 24.05.2008 • Lang: Polska · Ukraine · Russian · English</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="resume-card" aria-labelledby="resume-title">
+      <div class="resume-content">
+        <h2 id="resume-title">Резюме — Danylo Zhyvotov</h2>
+        <p><strong>Профессия:</strong> Web-Developer, Full-Stack, дизайнер с чувством стиля и логики.</p>
+        <p><strong>Навыки:</strong> HTML, CSS, JS, Node.js, Express, React, Figma, UI/UX, REST API, Git, GitHub.</p>
+        <p><strong>Опыт:</strong> создание современных адаптивных сайтов, интерфейсов, участие в open-source проектах.
+        </p>
+        <p><strong>Языки:</strong> Polish, Ukrainian, Russian, English.</p>
+        <p><strong>Цель:</strong> развивать крутые веб-проекты с идеей и качеством.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© Danylo Zhyvotov — ParrotFromUkraine</div>
+    </footer>
+  </div>
+
+  <!-- Script -->
+  <script>
+    (function () {
+      const form = document.getElementById("contactForm");
+      const msg = document.getElementById("formMessage");
+      const copyBtn = document.getElementById("copyEmail");
+
+      // Замените email перед публикацией
+      const PUBLIC_EMAIL = "youremail@example.com";
+
+      function showMessage(text, isError = false) {
+        msg.textContent = text;
+        msg.style.color = isError ? "#ffb3b3" : "var(--muted)";
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = form.Username.value.trim();
+        const email = form.Email.value.trim();
+        const text = form.Text.value.trim();
+
+        if (!name || !email || !text) {
+          showMessage("Пожалуйста, заполните все поля.", true);
+          return;
+        }
+
+        const re = /^\S+@\S+\.\S+$/;
+        if (!re.test(email)) {
+          showMessage("Пожалуйста, введите корректный email.", true);
+          return;
+        }
+
+        // Можно подключить серверный endpoint (пример закомментирован)
+        // fetch('/api/contact', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ name, email, text })
+        // })
+        //   .then(r => r.ok
+        //     ? showMessage('Сообщение отправлено!')
+        //     : showMessage('Ошибка при отправке', true))
+        //   .catch(() => showMessage('Ошибка сети', true));
+
+        // Fallback: открываем почтовый клиент
+        const subject = encodeURIComponent("Сообщение от " + name + " (site)");
+        const body = encodeURIComponent(
+          text + "\n\n— От: " + name + " <" + email + ">"
+        );
+        window.location.href =
+          "mailto:" + PUBLIC_EMAIL + "?subject=" + subject + "&body=" + body;
+        showMessage("Открывается почтовый клиент...");
+      });
+
+      copyBtn.addEventListener("click", () => {
+        if (!navigator.clipboard) {
+          showMessage(
+            "Ваш браузер не поддерживает копирование автоматически. " +
+            "Скопируйте вручную: " +
+            PUBLIC_EMAIL,
+            true
+          );
+          return;
+        }
+        navigator.clipboard
+          .writeText(PUBLIC_EMAIL)
+          .then(() => showMessage("Email скопирован в буфер обмена"))
+          .catch(() =>
+            showMessage(
+              "Не удалось скопировать — скопируйте вручную: " +
+              PUBLIC_EMAIL,
+              true
+            )
+          );
+      });
+
+      // Отправка по Ctrl+Enter
+      document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          form.requestSubmit();
+        }
+      });
+
+      // Respect "reduce motion"
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (prefersReduced.matches) {
+        document
+          .querySelectorAll("*")
+          .forEach((el) => (el.style.animation = "none"));
+      }
+    })();
+  </script>
+</body>
+
+</html>
