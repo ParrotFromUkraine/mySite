@@ -1,3 +1,3 @@
 # Мой персональный сайт
 * html/css/js
-* Node.js => express, nodemon, node-telegram-bot-api
+* Node.js => react, express, nodemon, node-telegram-bot-api
