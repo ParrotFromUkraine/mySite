@@ -11,6 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
+  <!-- React -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+  <!-- Babel для JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="./style.css">
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 </head>
@@ -49,9 +57,10 @@
           <img class="imgCard" src="./img/zhyvotovdanylo.jpeg" alt="Фото Danylo Zhyvotov" />
           <div class="textCard">
             <h1>Danylo Zhyvotov</h1>
+            <p>Live: Poland</p>
             <p>Web-Developer · FullStack</p>
             <p>Username: <strong>ParrotFromUkraine</strong></p>
-            <p class="muted">Birthday: 24.05.2008 • Lang: Polska · Ukraine · Russian · English</p>
+            <p class="muted">Lang: Polska, Ukraine, English</p>
           </div>
         </div>
       </aside>
@@ -70,9 +79,7 @@
       </div>
     </section>
 
-    <main>
-      <!-- Доделать до конца -->
-    </main>
+    <div class="root"></div>
 
     <footer>
       <div>© Danylo Zhyvotov — ParrotFromUkraine</div>
