@@ -3,8 +3,8 @@ const root = ReactDOM.createRoot(document.querySelector('.root'));
 let test = [{
     id: 1, 
     header: 'Привет',
-    description: 'Я попугай так-то', 
-    date: '', 
+    description: 'Вот и начался мой путь в прогрмамирования', 
+    date: '24-05-2008', 
 },{
     id: 2, 
     header: 'Привет',
@@ -45,8 +45,8 @@ function App() {
     return (
         <div className="container">
             <h1 className="page-title">Чим я займаюсь</h1>
-            <ul className="cards-grid">
-                {items.map(it => <Card key={it.id} item={it} />)}
+            <ul className="cards-grid" style={{ padding: 0, listStyle: 'none' }}>
+                {items.map(it => <Card key={it.id} item={it}/>)}
             </ul>
         </div>
     );

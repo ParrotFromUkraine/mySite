@@ -129,6 +129,7 @@
       align-items: center;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.03);
+      margin: 20px;
     }
 
     .imgCard {
@@ -357,4 +358,19 @@
       display: flex;
       gap: 8px;
       align-items: center;
+    }
+
+    .conteiner {
+      max-width: var(--max-width);
+
+    }
+  
+    li.card-item {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top:20px;
     }
