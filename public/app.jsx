@@ -1,35 +1,23 @@
 const root = ReactDOM.createRoot(document.querySelector('.root'));
-
-let test = [{
-    id: 1, 
-    header: 'Привет',
-    description: 'Вот и начался мой путь в прогрмамирования', 
-    date: '24-05-2008', 
-},{
-    id: 2, 
-    header: 'Привет',
-    description: 'Я попугай так-то', 
-    date: '', 
-}
-]
-
-const generateId = () => {
-    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-        return crypto.randomUUID();
-    }
-    return `id_${Date.now().toString(36)}_${Math.floor(Math.random() * 1e6).toString(36)}`;
+class constructorList {
+  constructor(id, header, description, date) {
+    this.id = id;
+    this.header = header;
+    this.description = description;
+    this.date = date;
+  }
 }
 
-let items = Array.isArray(test) ? test.slice() : [test];
+let whatIDo = [
+  new constructorList(1, 'HTML/CSS', 'firsts steps in web development', '2020-2021'),
+  new constructorList(2, 'JavaScript', 'learning basics of JavaScript', '2021-2022'),
+  new constructorList(3, 'React', 'building web applications with React', '2022-2023'),
+];
 
-items = items.map((it, i) => {
-    if (!it.id && it.id !== 0) it.id = generateId();
-    // можна додати дефолтні поля
-    it.header = it.header || 'Без заголовка';
-    it.description = it.description || '';
-    it.date = it.date || '';
-    return it;
-});
+console.log(whatIDo);
+
+// добавляем алиас items (раньше в коде items не было — это причина ошибки)
+const items = whatIDo;
 
 function Card({ item }) {
     return (
@@ -45,8 +33,11 @@ function App() {
     return (
         <div className="container">
             <h1 className="page-title">Чим я займаюсь</h1>
-            <ul className="cards-grid" style={{ padding: 0, listStyle: 'none' }}>
-                {items.map(it => <Card key={it.id} item={it}/>)}
+            <ul
+              className="cards-grid"
+              style={{ padding: 0, listStyle: 'none', display: 'grid', gap: '20px', margin: '20px 0' }}
+            >
+                {items.map(it => <Card key={it.id} item={it} />)}
             </ul>
         </div>
     );
