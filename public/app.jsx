@@ -1,12 +1,19 @@
 const root = ReactDOM.createRoot(document.querySelector('.root'));
 class constructorList {
-  constructor(id, header, description, date) {
+  constructor(id, header, description, date, waga) {
     this.id = id;
     this.header = header;
     this.description = description;
     this.date = date;
+    this.waga = waga;
   }
 }
+
+// if (waga === 1) {
+//     console.log('waga 1')
+//     style
+// }
+
 
 let whatIDo = [
   new constructorList(1, 'HTML/CSS', 'firsts steps in web development', '2020-2021'),
@@ -35,7 +42,7 @@ function App() {
             <h1 className="page-title">Чим я займаюсь</h1>
             <ul
               className="cards-grid"
-              style={{ padding: 0, listStyle: 'none', display: 'grid', gap: '20px', margin: '20px 0' }}
+              style={{ padding: 0, listStyle: 'none', display: 'grid' }}
             >
                 {items.map(it => <Card key={it.id} item={it} />)}
             </ul>
