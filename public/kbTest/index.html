@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Typing Speed Test</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+
+</head>
+<body>
+
+<header>
+  <h1>TYPING SPEED TEST</h1>
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-value" id="wpm">0</div>
+    <div class="stat-label">WPM</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" id="acc">100</div>
+    <div class="stat-label">ACC %</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" id="timer">60</div>
+    <div class="stat-label">SEC</div>
+  </div>
+</div>
+
+<div id="quote-box" tabindex="0">
+  <input id="input-area" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+</div>
+
+<p class="click-hint" id="hint">click here or start typing</p>
+
+<div id="result-box">
+  <div class="big" id="final-wpm">0 WPM</div>
+  <div class="sub" id="final-acc"></div>
+</div>
+
+<div class="actions">
+  <button class="action-btn" id="restart-btn">restart [tab]</button>
+</div>
+
+<script src="./scripts.js"></script>
+</body>
+</html>

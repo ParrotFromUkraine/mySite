@@ -15,7 +15,7 @@ class constructorList {
 // }
 
 
-let whatIDo = [
+const whatIDo = [
   new constructorList(4, 'Переезд', 'Переезд в Польшу в город Бяла-Подляска (Biała-Podlaska)', '30.08.2025'),
   new constructorList(2, 'Node.js', 'learning basics framework on JavaScript', '2024-2025'),
   new constructorList(3, 'JavaScript', 'learning basics of JavaScript', '2022-2024'),

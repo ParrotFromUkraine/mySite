@@ -1,0 +1,209 @@
+    :root {
+      --bg-base: 120, 180, 220;
+      --text: #f8f9fa;
+      --text-secondary: #e0e7ff;
+      --card-bg: rgba(255, 255, 255, 0.12);
+      --card-border: rgba(255, 255, 255, 0.18);
+      --shadow: 0 12px 32px rgba(0,0,0,0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, 
+        rgb(var(--bg-base)) 0%, 
+        color-mix(in srgb, rgb(var(--bg-base)) 60%, #6b7280) 100%);
+      color: var(--text);
+      background-attachment: fixed;
+      transition: background 1.2s ease;
+      overflow-x: hidden;
+    }
+
+    .appContainer {
+      padding: 3rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      background: linear-gradient(90deg, #fff, var(--text-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .inpForm {
+      max-width: 520px;
+      margin: 0 auto 3.5rem;
+      position: relative;
+    }
+
+    form {
+      display: flex;
+      gap: 1rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.5rem;
+      padding: 0.8rem;
+      box-shadow: var(--shadow);
+    }
+
+    input {
+      flex: 1;
+      padding: 1rem 1.4rem;
+      font-size: 1.1rem;
+      background: transparent;
+      border: none;
+      color: white;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    button {
+      padding: 0 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59,130,246,0.4);
+    }
+
+    .msg {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 1rem;
+      color: #fecaca;
+      font-weight: 500;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    }
+
+    .cities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .city {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      border-radius: 1.8rem;
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: appear 0.7s forwards;
+    }
+
+    @keyframes appear {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .city:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+    }
+
+    .city-name {
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.9rem;
+      font-weight: 600;
+    }
+
+    .city-name sup {
+      font-size: 1rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.2);
+      padding: 0.3rem 0.7rem;
+      border-radius: 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .city-temp {
+      font-size: 4.2rem;
+      font-weight: 700;
+      margin: 0.6rem 0 1.2rem;
+      line-height: 0.9;
+    }
+
+    .city-temp sup {
+      font-size: 2rem;
+      vertical-align: 1.4rem;
+      opacity: 0.9;
+    }
+
+    figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .city-icon {
+      width: 110px;
+      height: 110px;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+      transition: transform 0.4s ease;
+    }
+
+    .city:hover .city-icon {
+      transform: scale(1.15);
+    }
+
+    figcaption {
+      font-size: 1.15rem;
+      text-transform: capitalize;
+      opacity: 0.9;
+    }
+
+    footer {
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+      padding: 1.2rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 3.2rem; }
+      .city-temp { font-size: 3.4rem; }
+      .city-icon { width: 90px; height: 90px; }
+    }
