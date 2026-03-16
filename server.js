@@ -10,15 +10,19 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const cors = require('cors');
 
+// Database module
+const { users, messages: messageOps } = require('./database');
+
 const TOKEN = process.env.TOKEN || '8487545614:AAF6ga69RrV40F_syKH1Y14NoUbv1DSzGwQ';
 const bot = new telegram(TOKEN, { polling: true });
 const app = express();
 const PORT = process.env.PORT || 3000;
 const server = http.createServer(app);
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-key-change-in-production';// Секретный ключ для JWT (в продакшене использовать env переменные)
-const users = new Map(); // userId -> { id, username, password, createdAt }
-const sessions = new Map(); // token -> userId
-const messages = []; // [{ id, userId, username, text, timestamp }]
+// Removed in-memory storage - now using database
+// const users = new Map(); // userId -> { id, username, password, createdAt }
+// const sessions = new Map(); // token -> userId
+// const messages = []; // [{ id, userId, username, text, timestamp }]
 
 // Настройка Socket.IO
 const io = new Server(server, {
@@ -144,32 +148,24 @@ app.post('/apiChat/register', async (req, res) => {
     }
 
     // Проверка уникальности
-    for (const [id, user] of users) {
-      if (user.username.toLowerCase() === username.toLowerCase()) {
-        return res.status(400).json({ error: 'Пользователь уже существует' });
-      }
+    const existingUser = users.findByUsername(username.trim().toLowerCase());
+    if (existingUser) {
+      return res.status(400).json({ error: 'Пользователь уже существует' });
     }
 
-    // Хеширование пароля
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const userId = uuidv4();
+    // Создание пользователя в БД
+    const user = users.create(username.trim(), password);
     
-    users.set(userId, {
-      id: userId,
-      username: username.trim(),
-      password: hashedPassword,
-      createdAt: new Date().toISOString()
-    });
-
     // Создание токена
-    const token = jwt.sign({ userId, username }, JWT_SECRET, { expiresIn: '7d' });
-    sessions.set(token, userId);
+    const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '7d' });
+    sessions.set(token, user.id);
 
     res.json({ 
       token, 
-      user: { id: userId, username } 
+      user: { id: user.id, username: user.username } 
     });
   } catch (error) {
+    console.error('[ERROR] Регистрация:', error);
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });
@@ -183,41 +179,36 @@ app.post('/apiChat/login', async (req, res) => {
       return res.status(400).json({ error: 'Имя пользователя и пароль обязательны' });
     }
 
-    // Поиск пользователя
-    let foundUser = null;
-    for (const [id, user] of users) {
-      if (user.username.toLowerCase() === username.toLowerCase()) {
-        foundUser = user;
-        break;
-      }
-    }
+    // Поиск пользователя в БД
+    const user = users.findByUsername(username.toLowerCase());
 
-    if (!foundUser) {
+    if (!user) {
       return res.status(401).json({ error: 'Неверные учетные данные' });
     }
 
     // Проверка пароля
-    const validPassword = await bcrypt.compare(password, foundUser.password);
+    const validPassword = users.verifyPassword(user, password);
     if (!validPassword) {
       return res.status(401).json({ error: 'Неверные учетные данные' });
     }
 
     // Создание токена
-    const token = jwt.sign({ userId: foundUser.id, username: foundUser.username }, JWT_SECRET, { expiresIn: '7d' });
-    sessions.set(token, foundUser.id);
+    const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '7d' });
+    sessions.set(token, user.id);
 
     res.json({ 
       token, 
-      user: { id: foundUser.id, username: foundUser.username } 
+      user: { id: user.id, username: user.username } 
     });
   } catch (error) {
+    console.error('[ERROR] Вход:', error);
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });
 
 // API: Валидация токена
 app.get('/apiChat/auth', authenticateToken, (req, res) => {
-  const user = users.get(req.userId);
+  const user = users.findById(req.userId);
   if (!user) {
     return res.status(404).json({ error: 'Пользователь не найден' });
   }
@@ -227,16 +218,13 @@ app.get('/apiChat/auth', authenticateToken, (req, res) => {
 // API: Получить историю сообщений
 app.get('/apiChat/messages', authenticateToken, (req, res) => {
   const limit = Math.min(parseInt(req.query.limit) || 50, 100);
-  const recentMessages = messages.slice(-limit);
+  const recentMessages = messageOps.getRecent(limit);
   res.json({ messages: recentMessages });
 });
 
 // API: Получить список пользователей
 app.get('/apiChat/users', authenticateToken, (req, res) => {
-  const userList = [];
-  for (const [id, user] of users) {
-    userList.push({ id: user.id, username: user.username });
-  }
+  const userList = users.getAll();
   res.json({ users: userList });
 });
 
@@ -248,7 +236,7 @@ io.on('connection', (socket) => {
   socket.on('authenticate', (token) => {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
-      const user = users.get(decoded.userId);
+      const user = users.findById(decoded.userId);
       
       if (user) {
         currentUser = { id: user.id, username: user.username };
@@ -293,20 +281,11 @@ io.on('connection', (socket) => {
       return;
     }
 
-    // Создание сообщения
-    const message = {
-      id: uuidv4(),
-      userId: currentUser.id,
-      username: currentUser.username,
-      text: trimmedText,
-      timestamp: new Date().toISOString()
-    };
+    // Сохранение сообщения в БД
+    const message = messageOps.create(currentUser.id, currentUser.username, trimmedText);
 
-    // Сохранение в истории (максимум 1000 сообщений)
-    messages.push(message);
-    if (messages.length > 1000) {
-      messages.shift();
-    }
+    // Очистка старых сообщений (максимум 1000)
+    messageOps.cleanup(1000);
 
     // Отправка всем
     io.emit('message', message);
@@ -325,7 +304,7 @@ io.on('connection', (socket) => {
 
   // Запрос истории
   socket.on('getHistory', (limit = 50) => {
-    const recentMessages = messages.slice(-Math.min(limit, 100));
+    const recentMessages = messageOps.getRecent(Math.min(limit, 100));
     socket.emit('history', { messages: recentMessages });
   });
 });
@@ -342,4 +321,5 @@ process.on('unhandledRejection', (reason, promise) => {
 // Запуск сервера
 server.listen(PORT, () => {
   console.log(`Сервер запущен на http://localhost:${PORT}`);
+  console.log(`База даних: SQLite (data/chat.db)`);
 });
