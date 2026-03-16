@@ -4,50 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Typing Speed Test</title>
+  
+  <!-- Google Fonts: Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  
   <link rel="stylesheet" href="./style.css">
-  <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="../main/favicon.ico" />
 
 </head>
 <body>
 
-<header>
-  <h1>TYPING SPEED TEST</h1>
-  <div class="lang-toggle">
-    <button class="lang-btn active" data-lang="en">EN</button>
-    <button class="lang-btn" data-lang="ru">RU</button>
+  <a href="/main/" class="back-link" aria-label="Back to main">← Main</a>
+
+  <header>
+    <div class="header-content">
+      <h1>TYPING SPEED TEST</h1>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="ru">RU</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value" id="wpm">0</div>
+      <div class="stat-label">WPM</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="acc">100</div>
+      <div class="stat-label">ACC %</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="timer">60</div>
+      <div class="stat-label">SEC</div>
+    </div>
   </div>
-</header>
 
-<div class="stats">
-  <div class="stat">
-    <div class="stat-value" id="wpm">0</div>
-    <div class="stat-label">WPM</div>
+  <div id="quote-box" tabindex="0">
+    <input id="input-area" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
   </div>
-  <div class="stat">
-    <div class="stat-value" id="acc">100</div>
-    <div class="stat-label">ACC %</div>
+
+  <p class="click-hint" id="hint">click here or start typing</p>
+
+  <div id="result-box">
+    <div class="big" id="final-wpm">0 WPM</div>
+    <div class="sub" id="final-acc"></div>
   </div>
-  <div class="stat">
-    <div class="stat-value" id="timer">60</div>
-    <div class="stat-label">SEC</div>
+
+  <div class="actions">
+    <button class="action-btn" id="restart-btn">restart [tab]</button>
   </div>
-</div>
 
-<div id="quote-box" tabindex="0">
-  <input id="input-area" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-</div>
-
-<p class="click-hint" id="hint">click here or start typing</p>
-
-<div id="result-box">
-  <div class="big" id="final-wpm">0 WPM</div>
-  <div class="sub" id="final-acc"></div>
-</div>
-
-<div class="actions">
-  <button class="action-btn" id="restart-btn">restart [tab]</button>
-</div>
-
-<script src="./scripts.js"></script>
+  <script src="./scripts.js"></script>
 </body>
 </html>

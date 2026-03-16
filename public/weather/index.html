@@ -4,33 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Simple Weather App • Modern</title>
+  
+  <!-- Google Fonts: Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+  <link rel="icon" type="image/x-icon" href="../main/favicon.ico" />
 </head>
 <body>
 
-<div class="appContainer">
-  <h1>Simple Weather App</h1>
+  <a href="/main/" class="back-link" aria-label="Back to main">← Main</a>
 
-  <section class="inpForm">
-    <form id="cityForm">
-      <input type="text" id="inpCity" placeholder="Введіть місто (Київ, Львів...)" autocomplete="off" />
-      <button type="submit">Знайти</button>
-    </form>
-    <span class="msg"></span>
-  </section>
+  <div class="appContainer">
+    <h1>Simple Weather App</h1>
 
-  <ul class="cities"></ul>
-</div>
+    <section class="inpForm">
+      <form id="cityForm">
+        <input type="text" id="inpCity" placeholder="Введіть місто (Київ, Львів...)" autocomplete="off" />
+        <button type="submit">Знайти</button>
+      </form>
+      <span class="msg"></span>
+    </section>
 
-<footer>
-  Created by ParrotFromUkraine | PFU ♡ • 2026
-</footer>
+    <ul class="cities"></ul>
+  </div>
 
-<script src="script.js"></script>
+  <footer>
+    Created by <a href="/main/">ParrotFromUkraine</a> | PFU ♡ • 2026
+  </footer>
+
+  <script src="script.js"></script>
 
 </body>
 </html>
