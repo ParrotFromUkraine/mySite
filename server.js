@@ -9,9 +9,21 @@ const { v4: uuidv4 } = require('uuid');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const cors = require('cors');
+const multer = require('multer')
 
 // Database module
 const { users, messages: messageOps } = require('./database');
+
+const storageDisk = multer.diskStorage({
+    destination: function (req, file, cb) {
+    cb(null, 'C:/up'); // <-- ТВОЙ второй диск
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
+  }
+})
+const upload = multer({ storage: storageDisk });
 
 const TOKEN = process.env.TOKEN || '8487545614:AAF6ga69RrV40F_syKH1Y14NoUbv1DSzGwQ';
 const bot = new telegram(TOKEN, { polling: true });
@@ -107,6 +119,31 @@ app.get('/chat', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'chat', 'index.html'));
 });
 
+
+
+
+
+// HTML страница
+app.get('/main/upload/cloud', (req, res) => {
+  res.send(`
+    <h2>Загрузка файлов</h2>
+    <form action="/main/upload/files" method="POST" enctype="multipart/form-data">
+      <input type="file" name="files" multiple />
+      <button type="submit">Отправить</button>
+    </form>
+  `);
+});
+
+// загрузка нескольких файлов
+app.post('/main/upload/files', upload.array('files', 20), (req, res) => {
+  res.json({
+    message: 'Файлы загружены',
+    files: req.files
+  });
+});
+
+
+
 // <--- Finish routes --->
 
 // Removed app.listen to prevent port conflict with Socket.IO server.
@@ -155,14 +192,14 @@ app.post('/apiChat/register', async (req, res) => {
 
     // Создание пользователя в БД
     const user = users.create(username.trim(), password);
-    
+   
     // Создание токена
     const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '7d' });
     sessions.set(token, user.id);
 
-    res.json({ 
-      token, 
-      user: { id: user.id, username: user.username } 
+    res.json({
+      token,
+      user: { id: user.id, username: user.username }
     });
   } catch (error) {
     console.error('[ERROR] Регистрация:', error);
@@ -196,9 +233,9 @@ app.post('/apiChat/login', async (req, res) => {
     const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '7d' });
     sessions.set(token, user.id);
 
-    res.json({ 
-      token, 
-      user: { id: user.id, username: user.username } 
+    res.json({
+      token,
+      user: { id: user.id, username: user.username }
     });
   } catch (error) {
     console.error('[ERROR] Вход:', error);
@@ -237,22 +274,22 @@ io.on('connection', (socket) => {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       const user = users.findById(decoded.userId);
-      
+     
       if (user) {
         currentUser = { id: user.id, username: user.username };
         socket.userId = user.id;
         socket.username = user.username;
-        
-        socket.emit('authenticated', { 
-          user: { id: user.id, username: user.username } 
+       
+        socket.emit('authenticated', {
+          user: { id: user.id, username: user.username }
         });
-        
+       
         // Уведомление о входе
-        socket.broadcast.emit('userJoined', { 
+        socket.broadcast.emit('userJoined', {
           username: user.username,
           message: `${user.username} присоединился к чату`
         });
-        
+       
         console.log(`User connected: ${user.username}`);
       }
     } catch (err) {
@@ -268,7 +305,7 @@ io.on('connection', (socket) => {
     }
 
     const { text } = data;
-    
+   
     // Валидация
     if (!text || typeof text !== 'string') {
       socket.emit('error', { message: 'Сообщение не может быть пустым' });
@@ -294,7 +331,7 @@ io.on('connection', (socket) => {
   // Отключение
   socket.on('disconnect', () => {
     if (currentUser) {
-      socket.broadcast.emit('userLeft', { 
+      socket.broadcast.emit('userLeft', {
         username: currentUser.username,
         message: `${currentUser.username} покинул чат`
       });
