@@ -16,7 +16,7 @@ const { users, messages: messageOps } = require('./database');
 
 const storageDisk = multer.diskStorage({
     destination: function (req, file, cb) {
-    cb(null, 'C:/up'); // <-- ТВОЙ второй диск
+    cb(null, 'G:/dataUp'); // <-- ТВОЙ второй диск
   },
   filename: function (req, file, cb) {
     const uniqueName = Date.now() + '-' + file.originalname;
