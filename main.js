@@ -6,7 +6,6 @@ const multer = require('multer')
 
 const app = express();
 const port = 3000;
-const upload = multer({ storage: storageDisk });
 const storageDisk = multer.diskStorage({
     destination: function (req, file, cb) {
     cb(null, 'G:/dataUp'); // <-- ТВОЙ второй диск
@@ -16,6 +15,7 @@ const storageDisk = multer.diskStorage({
     cb(null, uniqueName);
   }
 })
+const upload = multer({ storage: storageDisk });
 
 
 // @route GET 
