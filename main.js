@@ -8,6 +8,11 @@ const pg = require('pg');
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+// database
 const data_DB = new pg.Client({
   user: process.env.database_username,
   host: process.env.database_host,
@@ -19,22 +24,16 @@ const data_DB = new pg.Client({
 async function connectionDB () {
  await data_DB.connect();
   console.log('Подключение к базе данных прошло успешно');
-  const res = await data_DB.query('SELECT * FROM users');
+  const res = await data_DB.query('SELECT * FROM practice1');
   console.log(res.rows);
   await data_DB.end();  
 }
 
 function getDatabaseUsers() {
   console.log('Fetching users from DB...');
-
 }
 
-function sayHello() {
-  console.log('Привет, пользователь!');
-}
-
-console.log('Операционная система:', os.type());
-
+// cloud
 let storageDisk;
 let upload;
 let cloudEnabled = false;
@@ -130,11 +129,14 @@ function initCLI() {
   });
 }
 
+// start 
 function startServer() {
-  console.log('\nСервер запущен. Теперь можно вводить к��манды: hello, users, exit\n');
-  
-  // @route GET 
+  // @route GET
   app.get('/', (req, res) => {
+    res.redirect('/main');
+  });
+  
+  app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'main', 'index.html'));
   });
 
