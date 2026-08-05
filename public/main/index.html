@@ -3,91 +3,179 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zhyvotov.Danil — ParrotFromUkraine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0d12" />
+  <title>Danylo Zhyvotov — Full-stack Developer</title>
 
-  <!-- Google Fonts: Roboto -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- React -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
-  <!-- Babel для JSX -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  
-  <!-- CSS -->
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css" />
   <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 </head>
 
 <body>
-  <div class="page">
-    <!-- HEADER -->
-    <header>
-      <div class="logoHeader">
-        <img src="./favicon.ico" alt="Parrot logo" class="logoHeaderImg" />
-        <a href="#" aria-label="ParrotFromUkraine">ParrotFromUkraine</a>
-      </div>
+  <div class="site-shell">
+    <div class="ambient ambient--blue" aria-hidden="true"></div>
+    <div class="ambient ambient--lime" aria-hidden="true"></div>
 
-      <nav class="socialMedia" aria-label="social links">
-        <a href="https://t.me/SnrKesha" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://github.com/ParrotFromUkraine/" target="_blank" rel="noopener">GitHub</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="ParrotFromUkraine — на главную">
+        <span class="brand-mark"><img src="./favicon.ico" alt="" /></span>
+        <span>Parrot<span class="brand-accent">From</span>Ukraine</span>
+      </a>
+
+      <nav class="social-media" aria-label="Социальные сети">
+        <a href="#skills">Навыки</a>
+        <a href="#journey">Обо мне</a>
+        <a href="https://t.me/SnrKesha" target="_blank" rel="noopener">Telegram <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/ParrotFromUkraine/" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-left">
-        <h1 class="bigtext">UI / UX Design<br />Frontend<br />Backend</h1>
-        <p class="subtitle">
-          Web-developer, fullstack enthusiast. Пишу чистый код и люблю простые интерфейсы.
-        </p>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> Открыт к junior-позициям и проектам</p>
+          <h1 id="hero-title">Разрабатываю<br /><em>живые</em> цифровые<br />впечатления.</h1>
+          <p class="hero-description">
+            Я Danylo — junior full-stack developer. С 2020 года создаю веб-проекты:
+            адаптивные интерфейсы, JavaScript-логику и серверную часть на Node.js.
+            Работал над e-commerce задачами в команде и развиваю собственное портфолио на GitHub.
+          </p>
 
-        <div class="flex" style="margin-top: 18px">
-          <a class="btn" href="#resume">Резюме</a>
-          <a class="btn ghost" href="/assets/Danylo_Zhyvotov_CV.pdf" download>Скачать CV (PDF)</a>
-        </div>
-      </div>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#skills">Мой стек <span aria-hidden="true">↓</span></a>
+            <a class="button button--secondary" href="./assets/Danylo-Zhyvotov-CV-RU.pdf" download>Скачать CV · RU <span aria-hidden="true">↓</span></a>
+          </div>
 
-      <aside class="hero-right">
-        <div class="card" role="group" aria-label="Профиль">
-          <img class="imgCard" src="./img/zhyvotovdanylo.jpeg" alt="Фото Danylo Zhyvotov" />
-          <div class="textCard">
-            <h1>Danylo Zhyvotov</h1>
-            <p>Live: Poland</p>
-            <p>Web-Developer · FullStack</p>
-            <p>Username: <strong>ParrotFromUkraine</strong></p>
-            <p class="muted">Lang: Polska, Ukraine, English</p>
+          <div class="hero-meta" aria-label="Ключевая информация">
+            <div><strong>2020</strong><span>первые web-проекты</span></div>
+            <div><strong>2023</strong><span>freelance и pet-проекты</span></div>
+            <div><strong>4</strong><span>языка общения</span></div>
           </div>
         </div>
-      </aside>
-    </section>
 
-    <!-- RESUME -->
-    <section id="resume" class="resume-card" aria-labelledby="resume-title">
-      <div class="resume-content">
-        <h2 id="resume-title">Резюме — Danylo Zhyvotov</h2>
-        <p><strong>Профессия:</strong> Web-Developer, Full-Stack, дизайнер с чувством стиля и логики.</p>
-        <p><strong>Навыки:</strong> HTML, CSS, JS, Node.js, Express, React, Figma, UI/UX, Git, GitHub.</p>
-        <p><strong>Опыт:</strong> Робота в групе использую git branch, Создание сайтов e-commerce. Создание адаптивных
-          сайтов на разные тематики</p>
-        <p><strong>Языки:</strong> Polish, Ukrainian, Russian, English.</p>
-        <p><strong>Цель:</strong> Роботать в приятной обстановке с хорошой стабильной зарплатой.</p>
-      </div>
-    </section>
+        <aside class="profile-card" aria-label="Профиль Danylo Zhyvotov">
+          <div class="profile-card__topline"><span>PROFILE / 2025</span><span class="live-label">● LIVE</span></div>
+          <div class="profile-card__image-wrap">
+            <img class="profile-card__image" src="./img/pfu.JPG" alt="Портрет Danylo Zhyvotov" />
+            <span class="image-sticker">FULL<br />STACK</span>
+          </div>
+          <div class="profile-card__body">
+            <div>
+              <p class="profile-card__role">WEB DEVELOPER</p>
+              <h2>Danylo<br />Zhyvotov</h2>
+            </div>
+            <span class="profile-card__monogram" aria-hidden="true">DZ</span>
+          </div>
+          <div class="profile-card__footer">
+            <span>Biała Podlaska</span><span>UA / PL / EN / RU</span><span>@ParrotFromUkraine</span>
+          </div>
+        </aside>
+      </section>
 
-    <div class="root"></div>
+      <section class="toolbelt" aria-label="Мой основной стек">
+        <p>Работаю с</p>
+        <div class="toolbelt__items">
+          <span>HTML5 / CSS3</span><i></i><span>JavaScript</span><i></i><span>Node.js</span><i></i><span>Python</span><i></i><span>C++</span><i></i><span>Git / GitHub</span>
+        </div>
+      </section>
 
-    <footer>
-      <div>© 2025. Danylo Zhyvotov — ParrotFromUkraine</div>
+      <section id="skills" class="skills-section" aria-labelledby="skills-title">
+        <div class="skills-section__intro">
+          <p class="section-label">01 / НАВЫКИ</p>
+          <h2 id="skills-title">Умею собирать<br />веб-продукт целиком.</h2>
+          <p>От понятного интерфейса до логики приложения, Git-истории и развёртывания в привычной рабочей среде.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card skill-card--featured">
+            <p class="skill-card__label">FRONTEND</p>
+            <h3>Интерфейсы<br />и web apps</h3>
+            <p>Создаю адаптивные страницы и интерактивные веб-приложения на чистом JavaScript.</p>
+            <div class="skill-tags"><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>Responsive</span></div>
+          </article>
+          <article class="skill-card">
+            <p class="skill-card__label">BACKEND</p>
+            <h3>Логика<br />приложений</h3>
+            <p>Осваиваю серверную разработку, базы данных и архитектуру веб-приложений.</p>
+            <div class="skill-tags"><span>Node.js</span><span>Python</span><span>C++</span><span>Databases</span></div>
+          </article>
+          <article class="skill-card">
+            <p class="skill-card__label">WORKFLOW</p>
+            <h3>Командная<br />разработка</h3>
+            <p>Веду проекты на GitHub, работаю с ветками Git и уверенно чувствую себя в разных ОС.</p>
+            <div class="skill-tags"><span>Git</span><span>GitHub</span><span>VS Code</span><span>Linux / macOS</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="resume" class="resume-section" aria-labelledby="resume-title">
+        <div class="resume-section__intro">
+          <p class="section-label">02 / ОПЫТ</p>
+          <h2 id="resume-title">Проекты<br />и практика.</h2>
+        </div>
+        <div class="resume-details">
+          <div class="resume-grid">
+            <article class="resume-item resume-item--wide">
+              <span class="resume-item__number">01</span>
+              <div>
+                <h3>Full-stack подход</h3>
+                <p>Разбираюсь и во frontend, и в backend: проектирую интерфейс, пишу JavaScript-логику и связываю её с серверной частью.</p>
+              </div>
+            </article>
+            <article class="resume-item">
+              <span class="resume-item__number">02</span>
+              <div>
+                <h3>Командные задачи</h3>
+                <p>Участвовал в разработке e-commerce сайтов в небольшой команде: интерфейс, логика приложения и работа с Git.</p>
+              </div>
+            </article>
+            <article class="resume-item">
+              <span class="resume-item__number">03</span>
+              <div>
+                <h3>Собственные проекты</h3>
+                <p>Делаю лендинги, браузерные игры на JavaScript и личное портфолио, чтобы превращать обучение в реальную практику.</p>
+              </div>
+            </article>
+            <article class="resume-item resume-item--accent">
+              <span class="resume-item__number">04</span>
+              <div>
+                <h3>Развитие сейчас</h3>
+                <p>Учусь в IT-техникуме, изучаю базы данных и ОС, углубляю C++ и продолжаю расширять GitHub-портфолио.</p>
+              </div>
+            </article>
+          </div>
+          <div class="cv-downloads" aria-label="Скачать резюме">
+            <span>Резюме:</span>
+            <a href="./assets/Danylo-Zhyvotov-CV-RU.pdf" download>Русский <span aria-hidden="true">↓</span></a>
+            <a href="./assets/Danylo-Zhyvotov-CV-EN.pdf" download>English <span aria-hidden="true">↓</span></a>
+            <a href="./assets/Danylo-Zhyvotov-CV-PL.pdf" download>Polski <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="journey" class="journey-section" aria-labelledby="journey-title">
+        <div class="journey-section__heading">
+          <div>
+            <p class="section-label">03 / ПУТЬ</p>
+            <h2 id="journey-title">Как набираю опыт</h2>
+          </div>
+          <p>Учёба, практика в проектах и самостоятельная работа складываются в сильную техническую базу.</p>
+        </div>
+        <div class="root"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand" href="#top"><span class="brand-mark"><img src="./favicon.ico" alt="" /></span><span>Parrot<span class="brand-accent">From</span>Ukraine</span></a>
+      <p>© 2025 Danylo Zhyvotov</p>
+      <a href="mailto:zhyvotovdanylo@gmail.com">zhyvotovdanylo@gmail.com <span aria-hidden="true">↗</span></a>
     </footer>
   </div>
 
-  <!-- Script -->
-  <script type="text/babel" src="./app.jsx"></script>
+  <script src="./app.jsx"></script>
   <script src="./scripts.js"></script>
 </body>
 

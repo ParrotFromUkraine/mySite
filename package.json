@@ -2,12 +2,12 @@
   "name": "mybiosite",
   "version": "1.0",
   "description": "my main server",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon main.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "PFU | ParrotFromUkraine",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

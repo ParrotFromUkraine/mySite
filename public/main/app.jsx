@@ -1,54 +1,41 @@
-const root = ReactDOM.createRoot(document.querySelector('.root'));
-class constructorList {
-  constructor(id, header, description, date, waga) {
-    this.id = id;
-    this.header = header;
-    this.description = description;
-    this.date = date;
-    this.waga = waga;
-  }
-}
-
-// if (waga === 1) {
-//     console.log('waga 1')
-//     style
-// }
-
-
-const whatIDo = [
-  new constructorList(4, 'Переезд', 'Переезд в Польшу в город Бяла-Подляска (Biała-Podlaska)', '30.08.2025'),
-  new constructorList(2, 'Node.js', 'learning basics framework on JavaScript', '2024-2025'),
-  new constructorList(3, 'JavaScript', 'learning basics of JavaScript', '2022-2024'),
-  new constructorList(1, 'HTML/CSS', 'firsts steps in web development', '2020-2021'),
+const journey = [
+  {
+    year: '2025 — 2027',
+    title: 'IT-техникум',
+    description: 'Продолжаю профильное обучение: базы данных, операционные системы и программирование.',
+    kind: 'current',
+  },
+  {
+    year: '2024 — 2025',
+    title: 'Колледж кибернетики',
+    description: 'Изучал JavaScript frontend и backend, веб-разработку и основы веб-дизайна.',
+  },
+  {
+    year: '2023 — сейчас',
+    title: 'Freelance и pet-проекты',
+    description: 'E-commerce, лендинги, браузерные игры и личные проекты на GitHub.',
+  },
+  {
+    year: '2020 — сейчас',
+    title: 'Веб-разработка',
+    description: 'От первых HTML/CSS страниц к полноценным веб-приложениям и серверной логике.',
+  },
 ];
 
-console.log(whatIDo);
+const root = document.querySelector('.root');
 
-// добавляем алиас items (раньше в коде items не было — это причина ошибки)
-const items = whatIDo;
-
-function Card({ item }) {
-    return (
-        <li className="card" id={item.id}>
-            <h3 className="card-header">{item.header}</h3>
-            {item.description && <p className="card-desc">{item.description}</p>}
-            {item.date && <div className="card-date">{item.date}</div>}
-        </li>
-    );
-}
-
-function App() {
-    return (
-        <div className="container">
-            <h1 className="page-title">Чим я займаюсь</h1>
-            <ul
-              className="cards-grid"
-              style={{ padding: 0, listStyle: 'none', display: 'grid' }}
-            >
-                {items.map(it => <Card key={it.id} item={it} />)}
-            </ul>
+root.innerHTML = `
+  <div class="journey-grid">
+    ${journey.map((item, index) => `
+      <article class="journey-card ${item.kind ? `journey-card--${item.kind}` : ''}">
+        <div class="journey-card__topline">
+          <span>0${index + 1}</span>
+          <span>${item.year}</span>
         </div>
-    );
-}
-
-root.render(<App />);
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+        <span class="journey-card__arrow" aria-hidden="true">↗</span>
+      </article>
+    `).join('')}
+  </div>
+`;
